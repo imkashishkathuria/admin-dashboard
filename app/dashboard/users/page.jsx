@@ -43,15 +43,13 @@ const UserPages = () => {
             <td>john@gmail.com</td>
             <td>30.5.2025</td>
             <td>Admin</td>
-            <td>Active</td>
+            <td>active</td>
             <td>
               <div className={styles.buttons}>
-              <Link href="/">
+              <Link href="/dashboard/users/test">
                 <button className={`${styles.button} ${styles.view}`}>View</button>
               </Link>
-              <Link href="/">
               <button className={`${styles.button} ${styles.delete}`}>Delete</button>
-              </Link>
               </div>
             </td>
           </tr>
