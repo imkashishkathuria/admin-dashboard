@@ -1,16 +1,16 @@
 import React from 'react'
-import styles from '@/app/ui/dashboard/users/users.module.css'
+import styles from '@/app/ui/dashboard/products/products.module.css'
 import Search from '@/app/ui/dashboard/search/search'
 import Link from 'next/link'
 import Image from 'next/image'
 import Pagination from '@/app/ui/dashboard/pagination/pagination'
 
-const UserPages = () => {
+const ProductsPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Search placeholder="Search for a user..." />
-        <Link href="/dashboard/users/add">
+        <Search placeholder="Search for a product..." />
+        <Link href="/dashboard/products/add">
           <button className={styles.addButton}>
             Add New
           </button>
@@ -19,31 +19,31 @@ const UserPages = () => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <td>Name</td>
-            <td>Email</td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Price</td>
             <td>Created At</td>
-            <td>Role</td>
-            <td>Status</td>
+            <td>Stock</td>
             <td>Action</td>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <div className={styles.user}>
+              <div className={styles.product}>
                 <Image
-                  src="/noavatar.png"
+                  src="/noproduct.jpg"
                   alt=''
                   width={40}
                   height={40}
-                  className={styles.userImage} />
-                  John Doe
+                  className={styles.productImage} />
+                  IPhone
               </div>
             </td>
-            <td>john@gmail.com</td>
-            <td>30.5.2025</td>
-            <td>Admin</td>
-            <td>Active</td>
+            <td>Desc</td>
+            <td>$999</td>
+            <td>active</td>
+            <td>72</td>
             <td>
               <div className={styles.buttons}>
               <Link href="/">
@@ -62,4 +62,4 @@ const UserPages = () => {
   )
 }
 
-export default UserPages
+export default ProductsPage
