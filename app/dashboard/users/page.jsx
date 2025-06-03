@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect, useState } from 'react'
 import styles from '@/app/ui/dashboard/users/users.module.css'
 import Search from '@/app/ui/dashboard/search/search'
 import Link from 'next/link'
@@ -6,6 +8,21 @@ import Image from 'next/image'
 import Pagination from '@/app/ui/dashboard/pagination/pagination'
 
 const UserPages = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(()=>{
+    const fetchUsers = async() => {
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/users")
+        const data = await res.json();
+        setUsers(data);
+        console.log(data);
+      } catch (error) {
+        console.log("failed to fetch data")
+      }
+    }
+    fetchUsers();
+  },[])
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -21,14 +38,15 @@ const UserPages = () => {
           <tr>
             <td>Name</td>
             <td>Email</td>
-            <td>Created At</td>
-            <td>Role</td>
-            <td>Status</td>
-            <td>Action</td>
+            <td>Phone</td>
+            <td>City</td>
+            <td>Website</td>
+            <td>Company</td>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {users.map((user)=>(
+            <tr key={user.id}>
             <td>
               <div className={styles.user}>
                 <Image
@@ -37,22 +55,24 @@ const UserPages = () => {
                   width={40}
                   height={40}
                   className={styles.userImage} />
-                  John Doe
+                  {user.name}
               </div>
             </td>
-            <td>john@gmail.com</td>
-            <td>30.5.2025</td>
-            <td>Admin</td>
-            <td>active</td>
-            <td>
+            <td>{user.email}</td>
+            <td>{user.phone}</td>
+            <td>{user.address.city}</td>
+            <td>{user.website}</td>
+            <td>{user.company.name}</td>
+            {/* <td>
               <div className={styles.buttons}>
               <Link href="/dashboard/users/test">
                 <button className={`${styles.button} ${styles.view}`}>View</button>
               </Link>
               <button className={`${styles.button} ${styles.delete}`}>Delete</button>
               </div>
-            </td>
+            </td> */}
           </tr>
+          ))}
         </tbody>
       </table>
       <Pagination />
