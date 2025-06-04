@@ -7,22 +7,36 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Pagination from '@/app/ui/dashboard/pagination/pagination'
 
-const UserPages = () => {
+const UserPages = ({searchParams}) => {
+  const q=searchParams?.q || "";
   const [users, setUsers] = useState([]);
+   const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(()=>{
     const fetchUsers = async() => {
       try {
         const res = await fetch("https://jsonplaceholder.typicode.com/users")
         const data = await res.json();
+        
         setUsers(data);
         console.log(data);
+
+        if(q){
+          const filtered = data.filter((user)=>
+          user.name.toLowerCase().startsWith(q.toLowerCase()));
+          setFilteredUsers(filtered);
+        }
+        else{
+          setFilteredUsers(data);
+        }
+
       } catch (error) {
         console.log("failed to fetch data")
       }
     }
     fetchUsers();
-  },[])
+  },[q])
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -45,7 +59,7 @@ const UserPages = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user)=>(
+          {filteredUsers.map((user)=>(
             <tr key={user.id}>
             <td>
               <div className={styles.user}>
