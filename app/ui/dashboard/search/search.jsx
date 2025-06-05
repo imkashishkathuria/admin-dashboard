@@ -1,8 +1,9 @@
+"use client"
+
 import React from 'react'
 import styles from './search.module.css'
 import { MdSearch } from 'react-icons/md'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-// import { useRouter } from 'next/router'
 
 const Search = ({placeholder}) => {
   const searchParams = useSearchParams();
